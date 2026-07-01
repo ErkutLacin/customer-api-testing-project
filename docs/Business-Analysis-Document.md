@@ -200,6 +200,32 @@ Bu bölüm, Customer Management API kapsamında sunulacak servisleri ve bu servi
 | API-004 | PUT | /api/v1/customers/{customerId} | UpdateCustomerRequest | CustomerResponse | 200, 400, 404, 500 | FR-003 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
 | API-005 | PATCH | /api/v1/customers/{customerId}/status | UpdateCustomerStatusRequest | CustomerResponse | 200, 400, 404, 500 | FR-004 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
 
+---
+
+# 11. Doğrulama Kuralları (Validation Rules)
+
+Bu bölüm, sistemin veri girişleri sırasında uygulaması gereken doğrulama kurallarını tanımlar. Doğrulama kuralları, iş kurallarının sistem davranışına dönüştürülmüş halidir.
+
+## Kaynaklar
+
+- [İş Kuralları](#8-iş-kuralları-business-rules)
+- [Veri Sözlüğü](#9-veri-sözlüğü-data-dictionary)
+- [API Gereksinimleri](#10-api-gereksinimleri)
+
+| ID | Alan | Doğrulama Kuralı | Hata Mesajı | İlgili BR | İlgili DD | İlgili API | Kaynak |
+|----|------|------------------|-------------|-----------|-----------|------------|---------|
+| VR-001 | T.C. Kimlik Numarası | Alan boş bırakılamaz. | T.C. Kimlik Numarası zorunludur. | BR-001 | DD-002 | API-001 | Business Rules |
+| VR-002 | T.C. Kimlik Numarası | 11 haneli olmalıdır. | T.C. Kimlik Numarası 11 haneli olmalıdır. | BR-002 | DD-002 | API-001 | Business Rules |
+| VR-003 | T.C. Kimlik Numarası | Sistem içerisinde benzersiz olmalıdır. | Bu T.C. Kimlik Numarası ile kayıtlı müşteri bulunmaktadır. | BR-001 | DD-002 | API-001 | Business Rules |
+| VR-004 | Ad | Alan boş bırakılamaz. | Ad alanı zorunludur. | BR-003 | DD-003 | API-001 | Business Rules |
+| VR-005 | Soyad | Alan boş bırakılamaz. | Soyad alanı zorunludur. | BR-003 | DD-004 | API-001 | Business Rules |
+| VR-006 | Doğum Tarihi | Müşteri en az 18 yaşında olmalıdır. | 18 yaşından küçük müşteriler için kayıt oluşturulamaz. | BR-003 | DD-005 | API-001 | Business Rules |
+| VR-007 | Cep Telefonu | 10 haneli olmalıdır. | Cep telefonu numarası 10 haneli olmalıdır. | BR-005 | DD-006 | API-001 | Business Rules |
+| VR-008 | E-posta | Girilmişse sistem içerisinde benzersiz olmalıdır. | Bu e-posta adresi başka bir müşteri tarafından kullanılmaktadır. | BR-004 | DD-007 | API-001 | Business Rules |
+| VR-009 | Durum | Yeni müşteri oluşturulduğunda varsayılan değer Active olmalıdır. | - | BR-009 | DD-009 | API-001 | Business Rules |
+| VR-010 | T.C. Kimlik Numarası | Güncelleme işleminde değiştirilemez. | T.C. Kimlik Numarası güncellenemez. | BR-006 | DD-002 | API-004 | Business Rules |
+| VR-011 | Doğum Tarihi | Güncelleme işleminde değiştirilemez. | Doğum Tarihi güncellenemez. | BR-007 | DD-005 | API-004 | Business Rules |
+
 
 
 
