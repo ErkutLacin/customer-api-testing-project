@@ -105,13 +105,20 @@ Aşağıdaki fonksiyonlar bu projenin kapsamına dahil değildir:
 
 Bu bölüm, sistemin kullanıcı ihtiyaçlarını karşılamak için yerine getirmesi gereken temel fonksiyonel gereksinimleri içerir.
 
-| ID | Gereksinim |
-|----|------------|
-| FR-001 | Sistem, yetkilendirilmiş kullanıcıların zorunlu müşteri bilgilerini girerek yeni bir müşteri kaydı oluşturmasına izin vermelidir. |
-| FR-002 | Sistem, yetkilendirilmiş kullanıcıların benzersiz müşteri kimliği kullanarak mevcut müşteri bilgilerini görüntülemesine izin vermelidir. |
-| FR-003 | Sistem, yetkilendirilmiş kullanıcıların mevcut müşteriye ait güncellenebilir bilgileri değiştirmesine izin vermelidir. |
-| FR-004 | Sistem, yeni müşteri oluşturulmadan önce T.C. Kimlik Numarasının benzersiz olduğunu ve geçerli formatta olduğunu doğrulamalıdır. |
-| FR-005 | Sistem, müşteri bilgilerinde yapılan değişiklikleri tarih, saat ve işlemi gerçekleştiren kullanıcı bilgisi ile birlikte kayıt altına almalıdır. |
+## Kaynaklar
+
+- [Business Request](Business-Request.md)
+- [Stakeholder Interview](Stakeholder-Interview.md)
+
+| ID | Gereksinim | Kaynak |
+|----|------------|---------|
+| FR-001 | Sistem, yetkilendirilmiş kullanıcıların yeni bir müşteri kaydı oluşturmasına izin vermelidir. | Stakeholder Interview - S3 |
+| FR-002 | Sistem, yetkilendirilmiş kullanıcıların mevcut müşteri bilgilerini görüntülemesine izin vermelidir. | Stakeholder Interview - S3 |
+| FR-003 | Sistem, yetkilendirilmiş kullanıcıların mevcut müşteri bilgilerini güncellemesine izin vermelidir. | Stakeholder Interview - S3 |
+| FR-004 | Sistem, müşteriyi fiziksel olarak silmek yerine pasif duruma alabilmelidir. | Stakeholder Interview - S8 |
+| FR-005 | Sistem, müşteri oluşturulurken zorunlu alanların eksiksiz girildiğini doğrulamalıdır. | Stakeholder Interview - S5 |
+| FR-006 | Sistem, müşteri oluşturulurken T.C. Kimlik Numarasının benzersiz olduğunu doğrulamalıdır. | Stakeholder Interview - S6 |
+| FR-007 | Sistem, T.C. Kimlik Numarası ve Doğum Tarihi bilgilerinin güncellenmesine izin vermemelidir. | Stakeholder Interview - S7 |
 
 ---
 
