@@ -1,18 +1,18 @@
-# Business Request
+# İş Talebi
 
-## Request Source
+## Talep Kaynağı
 
-**Requester:** Ayşe Yılmaz  
-**Role:** Product Owner  
-**Channel:** Kick-off Meeting / Business Request  
-**Date:** TBD
+**Talep Eden:** Ayşe Yılmaz  
+**Rol:** Ürün Sahibi  
+**Kanal:** Kick-off Toplantısı / İş Talebi  
+**Tarih:** Belirlenecek
 
 ---
 
-## Initial Request
+## İlk Talep
 
 Mobil bankacılık uygulamamızda müşteri oluşturma ve yönetme süreçlerini standart hale getirmek istiyoruz.
 
-Şu anda müşteri bilgileri farklı sistemlerde tutuluyor. Bu nedenle yeni müşteri oluşturma, güncelleme ve görüntüleme işlemleri için ortak bir Customer Management API geliştirilmesine ihtiyaç duyuyoruz.
+Şu anda müşteri bilgileri farklı sistemlerde tutuluyor. Bu nedenle yeni müşteri oluşturma, güncelleme ve görüntüleme işlemleri için ortak bir Müşteri Yönetimi API geliştirilmesine ihtiyaç duyuyoruz.
 
 İlk analiz çalışmasının hazırlanmasını rica ederim.
