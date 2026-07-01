@@ -167,25 +167,38 @@ Bu bölüm, Customer Management API kapsamında kullanılacak veri alanlarını 
 
 - [Stakeholder Interview - 02](Stakeholder-Interview-02.md)
 
-| Alan | Veri Tipi | Zorunlu | Benzersiz | Güncellenebilir | Açıklama | Karar Kaynağı | Referans |
-|------|-----------|----------|-----------|-----------------|----------|---------------|-----------|
-| Customer ID | NUMBER | Evet | Evet | Hayır | Sistem tarafından otomatik oluşturulan müşteri numarası. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
-| T.C. Kimlik Numarası | CHAR(11) | Evet | Evet | Hayır | Müşteriye ait benzersiz kimlik numarası. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2, S4 |
-| Ad | VARCHAR2(50) | Evet | Hayır | Evet | Müşterinin adı. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
-| Soyad | VARCHAR2(50) | Evet | Hayır | Evet | Müşterinin soyadı. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
-| Doğum Tarihi | DATE | Evet | Hayır | Hayır | Müşterinin doğum tarihi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2, S4 |
-| Cep Telefonu | VARCHAR2(10) | Evet | Hayır | Evet | Müşterinin cep telefonu numarası. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
-| E-posta | VARCHAR2(100) | Hayır | Evet | Evet | Müşterinin e-posta adresi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
-| Adres | VARCHAR2(250) | Hayır | Hayır | Evet | Müşterinin adres bilgisi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
-| Durum | VARCHAR2(20) | Evet | Hayır | Evet | Müşterinin aktif/pasif durumu. Varsayılan değer **Active**'dir. | Business + Teknik Analiz | Stakeholder Interview - 02 / S3, S5 |
-| Oluşturulma Tarihi | DATE | Evet | Hayır | Hayır | Kaydın oluşturulduğu tarih. Sistem tarafından atanır. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
-| Güncellenme Tarihi | DATE | Evet | Hayır | Hayır | Son güncelleme tarihi. Sistem tarafından otomatik güncellenir. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
+| Alan | JSON Key | Veri Tipi | Zorunlu | Benzersiz | Güncellenebilir | Açıklama | Karar Kaynağı | Referans |
+|------|----------|-----------|----------|-----------|-----------------|----------|---------------|-----------|
+| Customer ID | customerId | NUMBER | Evet | Evet | Hayır | Sistem tarafından otomatik oluşturulan müşteri numarası. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
+| T.C. Kimlik Numarası | identityNumber | CHAR(11) | Evet | Evet | Hayır | Müşteriye ait benzersiz kimlik numarası. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2, S4 |
+| Ad | firstName | VARCHAR2(50) | Evet | Hayır | Evet | Müşterinin adı. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
+| Soyad | lastName | VARCHAR2(50) | Evet | Hayır | Evet | Müşterinin soyadı. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
+| Doğum Tarihi | birthDate | DATE | Evet | Hayır | Hayır | Müşterinin doğum tarihi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2, S4 |
+| Cep Telefonu | phoneNumber | VARCHAR2(10) | Evet | Hayır | Evet | Müşterinin cep telefonu numarası. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
+| E-posta | email | VARCHAR2(100) | Hayır | Evet | Evet | Müşterinin e-posta adresi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
+| Adres | address | VARCHAR2(250) | Hayır | Hayır | Evet | Müşterinin adres bilgisi. | Business + Teknik Analiz | Stakeholder Interview - 02 / S1, S2 |
+| Durum | status | VARCHAR2(20) | Evet | Hayır | Evet | Müşterinin aktif/pasif durumu. Varsayılan değer **Active**'dir. | Business + Teknik Analiz | Stakeholder Interview - 02 / S3, S5 |
+| Oluşturulma Tarihi | createdDate | DATE | Evet | Hayır | Hayır | Kaydın oluşturulduğu tarih. Sistem tarafından atanır. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
+| Güncellenme Tarihi | updatedDate | DATE | Evet | Hayır | Hayır | Son güncelleme tarihi. Sistem tarafından otomatik güncellenir. | Teknik Analiz | Stakeholder Interview - 02 / S3 |
 
 ---
 
+# 10. API Gereksinimleri
 
+Bu bölüm, Customer Management API kapsamında sunulacak servisleri ve bu servislere ait temel gereksinimleri tanımlar.
 
+## Kaynaklar
 
+- [Stakeholder Interview - 03](Stakeholder-Interview-03.md)
+- [Veri Sözlüğü](#9-veri-sözlüğü-data-dictionary)
+
+| ID | HTTP Method | Endpoint | Request Model | Response Model | Status Codes | İlgili FR | Kaynak |
+|----|-------------|----------|---------------|----------------|--------------|-----------|---------|
+| API-001 | POST | /api/v1/customers | CreateCustomerRequest | CustomerResponse | 201, 400, 409, 500 | FR-001 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
+| API-002 | GET | /api/v1/customers | - | CustomerListResponse | 200, 500 | FR-002 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
+| API-003 | GET | /api/v1/customers/{customerId} | - | CustomerResponse | 200, 404, 500 | FR-002 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
+| API-004 | PUT | /api/v1/customers/{customerId} | UpdateCustomerRequest | CustomerResponse | 200, 400, 404, 500 | FR-003 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
+| API-005 | PATCH | /api/v1/customers/{customerId}/status | UpdateCustomerStatusRequest | CustomerResponse | 200, 400, 404, 500 | FR-004 | Stakeholder Interview - 03 / S2, S3, S4, S5 |
 
 
 
