@@ -140,20 +140,22 @@ Bu bölüm, sistemin yerine getirmesi gereken performans, güvenlik, kullanılab
 
 Bu bölüm, sistemin uyması gereken iş kurallarını tanımlar. İş kuralları; fonksiyonel gereksinimleri destekler, veri doğrulama süreçlerine yön verir ve test senaryolarının temelini oluşturur.
 
-| ID | İş Kuralı |
-|----|-----------|
-| BR-001 | Her müşteriye ait T.C. Kimlik Numarası sistem içerisinde benzersiz olmalıdır. |
-| BR-002 | T.C. Kimlik Numarası 11 haneli ve geçerli formatta olmalıdır. |
-| BR-003 | Müşteri adı ve soyadı girilmesi zorunlu alanlardır. |
-| BR-004 | Müşteri oluşturulabilmesi için en az 18 yaşında olmalıdır. |
-| BR-005 | E-posta adresi zorunlu değildir. Girildiği takdirde sistem içerisinde benzersiz olmalıdır. |
-| BR-006 | Telefon numarası zorunludur ve 10 haneli olarak kaydedilmelidir. |
-| BR-007 | Pasif duruma alınan müşteriler sistemden fiziksel olarak silinmemelidir. |
-| BR-008 | Müşteri oluşturulma tarihi sistem tarafından otomatik olarak atanmalıdır. |
-| BR-009 | Müşteri bilgilerinde yapılan her değişiklik denetim kayıtlarına (Audit Log) kaydedilmelidir. |
-| BR-010 | Zorunlu alanlardan herhangi biri eksik olduğunda müşteri kaydı oluşturulmamalıdır. |
+## Kaynaklar
 
+- [Business Request](Business-Request.md)
+- [Stakeholder Interview](Stakeholder-Interview.md)
 
+| ID | Kategori | İş Kuralı | İlgili Gereksinim | Kaynak |
+|----|-----------|------------|-------------------|---------|
+| BR-001 | Kimlik | Her müşteriye ait T.C. Kimlik Numarası sistem içerisinde benzersiz olmalıdır. | FR-006 | Stakeholder Interview - S6 |
+| BR-002 | Kimlik | T.C. Kimlik Numarası 11 haneli ve geçerli formatta olmalıdır. | FR-005 | Stakeholder Interview - S6 |
+| BR-003 | Müşteri | Müşteri oluşturulabilmesi için en az 18 yaşında olmalıdır. | FR-005 | Stakeholder Interview - S6 |
+| BR-004 | İletişim | E-posta adresi girildiği takdirde sistem içerisinde benzersiz olmalıdır. | FR-005 | Stakeholder Interview - S6 |
+| BR-005 | İletişim | Telefon numarası 10 haneli olarak kaydedilmelidir. | FR-005 | Stakeholder Interview - S6 |
+| BR-006 | Güncelleme | T.C. Kimlik Numarası güncellenemez. | FR-007 | Stakeholder Interview - S7 |
+| BR-007 | Güncelleme | Doğum Tarihi güncellenemez. | FR-007 | Stakeholder Interview - S7 |
+| BR-008 | Silme | Müşteri kayıtları fiziksel olarak silinmemelidir. | FR-004 | Stakeholder Interview - S8 |
+| BR-009 | Silme | Silinen müşteriler **Passive** durumuna alınmalıdır. | FR-004 | Stakeholder Interview - S8 |
 
 
 
