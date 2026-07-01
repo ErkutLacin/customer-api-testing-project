@@ -46,9 +46,7 @@ REST standartlarına uygun olarak aşağıdaki metodlar kullanılmalıdır.
 | Yeni müşteri oluşturma | POST |
 | Müşteri bilgisi görüntüleme | GET |
 | Müşteri güncelleme | PUT |
-| Müşteriyi pasif duruma alma | DELETE |
-
-Not: DELETE isteği fiziksel silme işlemi yapmayacak, müşterinin durumunu Passive olarak güncelleyecektir.
+| Müşteri durumunu Passive olarak güncelleme | PATCH |
 
 ---
 
@@ -60,11 +58,11 @@ Aşağıdaki endpoint yapısı kullanılacaktır.
 
 | İşlem | Endpoint |
 |-------|----------|
-| Müşteri Oluştur | /customers |
-| Müşteri Listele | /customers |
-| Müşteri Detayı | /customers/{customerId} |
-| Müşteri Güncelle | /customers/{customerId} |
-| Müşteriyi Pasif Yap | /customers/{customerId} |
+| Müşteri Oluştur | /api/v1/customers |
+| Müşteri Listele | /api/v1/customers |
+| Müşteri Detayı | /api/v1/customers/{customerId} |
+| Müşteri Güncelle | /api/v1/customers/{customerId} |
+| Müşteri Durumunu Güncelle | /api/v1/customers/{customerId}/status |
 
 ---
 
