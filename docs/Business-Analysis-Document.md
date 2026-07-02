@@ -226,12 +226,66 @@ Bu bölüm, sistemin veri girişleri sırasında uygulaması gereken doğrulama 
 | VR-010 | T.C. Kimlik Numarası | Güncelleme işleminde değiştirilemez. | T.C. Kimlik Numarası güncellenemez. | BR-006 | DD-002 | API-004 | Business Rules |
 | VR-011 | Doğum Tarihi | Güncelleme işleminde değiştirilemez. | Doğum Tarihi güncellenemez. | BR-007 | DD-005 | API-004 | Business Rules |
 
+---
 
+# 12. Kabul Kriterleri (Acceptance Criteria)
 
+Bu bölüm, API gereksinimlerinin başarılı sayılabilmesi için karşılanması gereken kabul kriterlerini tanımlar.
 
+## Kaynaklar
 
+- [API Gereksinimleri](#10-api-gereksinimleri)
+- [Doğrulama Kuralları](#11-doğrulama-kuralları-validation-rules)
 
+---
 
+## API-001 - Yeni Müşteri Oluştur
+
+| ID | Kabul Kriteri | İlgili API | İlgili VR |
+|----|---------------|------------|-----------|
+| AC-001 | **Given** kullanıcı tüm zorunlu alanları doğru doldurmuştur. **When** yeni müşteri oluşturma isteği gönderilir. **Then** sistem 201 Created dönmeli ve müşteri kaydı oluşturulmalıdır. | API-001 | VR-001, VR-002 |
+| AC-002 | **Given** kullanıcı mevcut bir T.C. Kimlik Numarası ile kayıt oluşturmaya çalışmaktadır. **When** istek gönderilir. **Then** sistem 409 Conflict dönmeli ve uygun hata mesajını göstermelidir. | API-001 | VR-003 |
+| AC-003 | **Given** zorunlu alanlardan biri boş bırakılmıştır. **When** istek gönderilir. **Then** sistem 400 Bad Request dönmeli ve ilgili hata mesajını göstermelidir. | API-001 | VR-001, VR-004, VR-005 |
+| AC-004 | **Given** müşteri 18 yaşından küçüktür. **When** istek gönderilir. **Then** sistem kayıt oluşturmamalı ve uygun hata mesajını döndürmelidir. | API-001 | VR-006 |
+
+---
+
+## API-002 - Müşteri Listesi
+
+| ID | Kabul Kriteri | İlgili API | İlgili VR |
+|----|---------------|------------|-----------|
+| AC-005 | **Given** sistemde kayıtlı müşteriler bulunmaktadır. **When** müşteri listesi isteği gönderilir. **Then** sistem 200 OK dönmeli ve müşteri listesini döndürmelidir. | API-002 | - |
+| AC-006 | **Given** sistemde hiç müşteri bulunmamaktadır. **When** müşteri listesi isteği gönderilir. **Then** sistem 200 OK dönmeli ve boş bir liste döndürmelidir. | API-002 | - |
+
+---
+
+## API-003 - Müşteri Detayı
+
+| ID | Kabul Kriteri | İlgili API | İlgili VR |
+|----|---------------|------------|-----------|
+| AC-007 | **Given** istenilen müşteri sistemde bulunmaktadır. **When** müşteri detay isteği gönderilir. **Then** sistem 200 OK dönmeli ve müşteriye ait bilgileri döndürmelidir. | API-003 | - |
+| AC-008 | **Given** istenilen müşteri sistemde bulunmamaktadır. **When** müşteri detay isteği gönderilir. **Then** sistem 404 Not Found dönmeli ve uygun hata mesajını göstermelidir. | API-003 | - |
+
+---
+
+## API-004 - Müşteri Güncelle
+
+| ID | Kabul Kriteri | İlgili API | İlgili VR |
+|----|---------------|------------|-----------|
+| AC-009 | **Given** müşteri sistemde kayıtlıdır ve güncellenebilir alanlar için geçerli bilgiler girilmiştir. **When** güncelleme isteği gönderilir. **Then** sistem 200 OK dönmeli ve müşteri bilgilerini güncellemelidir. | API-004 | - |
+| AC-010 | **Given** kullanıcı T.C. Kimlik Numarasını güncellemeye çalışmaktadır. **When** güncelleme isteği gönderilir. **Then** sistem 400 Bad Request dönmeli ve "T.C. Kimlik Numarası güncellenemez." hata mesajını göstermelidir. | API-004 | VR-010 |
+| AC-011 | **Given** kullanıcı Doğum Tarihini güncellemeye çalışmaktadır. **When** güncelleme isteği gönderilir. **Then** sistem 400 Bad Request dönmeli ve "Doğum Tarihi güncellenemez." hata mesajını göstermelidir. | API-004 | VR-011 |
+| AC-012 | **Given** güncellenmek istenen müşteri sistemde bulunmamaktadır. **When** güncelleme isteği gönderilir. **Then** sistem 404 Not Found dönmeli ve uygun hata mesajını göstermelidir. | API-004 | - |
+
+---
+
+## API-005 - Müşteri Durumunu Güncelle
+
+| ID | Kabul Kriteri | İlgili API | İlgili VR |
+|----|---------------|------------|-----------|
+| AC-013 | **Given** müşteri sistemde kayıtlıdır. **When** durum bilgisi Passive olarak güncellenir. **Then** sistem 200 OK dönmeli ve müşterinin durumu Passive olarak güncellenmelidir. | API-005 | VR-009 |
+| AC-014 | **Given** müşteri sistemde bulunmamaktadır. **When** durum güncelleme isteği gönderilir. **Then** sistem 404 Not Found dönmeli ve uygun hata mesajını göstermelidir. | API-005 | - |
+| AC-015 | **Given** geçersiz bir durum değeri gönderilmiştir. **When** durum güncelleme isteği gönderilir. **Then** sistem 400 Bad Request dönmeli ve "Geçersiz durum bilgisi." hata mesajını döndürmelidir. | API-005 | - |
 
 
 
