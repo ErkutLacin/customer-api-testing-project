@@ -287,6 +287,71 @@ Bu bölüm, API gereksinimlerinin başarılı sayılabilmesi için karşılanmas
 | AC-014 | **Given** müşteri sistemde bulunmamaktadır. **When** durum güncelleme isteği gönderilir. **Then** sistem 404 Not Found dönmeli ve uygun hata mesajını göstermelidir. | API-005 | - |
 | AC-015 | **Given** geçersiz bir durum değeri gönderilmiştir. **When** durum güncelleme isteği gönderilir. **Then** sistem 400 Bad Request dönmeli ve "Geçersiz durum bilgisi." hata mesajını döndürmelidir. | API-005 | - |
 
+---
+
+# 13. Test Senaryoları (Test Scenarios)
+
+Bu bölüm, API gereksinimlerinin ve kabul kriterlerinin doğrulanabilmesi amacıyla oluşturulan yüksek seviyeli test senaryolarını içerir.
+
+## Kaynaklar
+
+- [API Gereksinimleri](#10-api-gereksinimleri)
+- [Kabul Kriterleri](#12-kabul-kriterleri-acceptance-criteria)
+
+| ID | Test Senaryosu | Test Tipi | İlgili API | İlgili AC | Durum |
+|----|----------------|-----------|------------|-----------|--------|
+| TS-001 | Başarılı müşteri oluşturma | Pozitif | API-001 | AC-001 | Draft |
+| TS-002 | Aynı T.C. Kimlik Numarası ile müşteri oluşturma | Negatif | API-001 | AC-002 | Draft |
+| TS-003 | Zorunlu alan eksikliği ile müşteri oluşturma | Negatif | API-001 | AC-003 | Draft |
+| TS-004 | 18 yaşından küçük müşteri oluşturma | Negatif | API-001 | AC-004 | Draft |
+| TS-005 | Başarılı müşteri listesi görüntüleme | Pozitif | API-002 | AC-005 | Draft |
+| TS-006 | Sistemde müşteri bulunmadığında boş liste döndürülmesi | Pozitif | API-002 | AC-006 | Draft |
+| TS-007 | Başarılı müşteri detayı görüntüleme | Pozitif | API-003 | AC-007 | Draft |
+| TS-008 | Bulunamayan müşteri detayı görüntüleme | Negatif | API-003 | AC-008 | Draft |
+| TS-009 | Başarılı müşteri güncelleme | Pozitif | API-004 | AC-009 | Draft |
+| TS-010 | T.C. Kimlik Numarasını güncellemeye çalışma | Negatif | API-004 | AC-010 | Draft |
+| TS-011 | Doğum Tarihini güncellemeye çalışma | Negatif | API-004 | AC-011 | Draft |
+| TS-012 | Bulunamayan müşteriyi güncelleme | Negatif | API-004 | AC-012 | Draft |
+| TS-013 | Müşteriyi Passive durumuna alma | Pozitif | API-005 | AC-013 | Draft |
+| TS-014 | Bulunamayan müşterinin durumunu güncelleme | Negatif | API-005 | AC-014 | Draft |
+| TS-015 | Geçersiz durum bilgisi gönderme | Negatif | API-005 | AC-015 | Draft |
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
