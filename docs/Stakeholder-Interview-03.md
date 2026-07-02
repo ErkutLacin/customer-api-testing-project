@@ -107,3 +107,27 @@ Evet.
 ```
 
 İleride geriye dönük uyumluluğun korunabilmesi için versiyonlama kullanılacaktır.
+
+---
+
+## S7. API geliştirme öncelikleri nasıl olmalıdır?
+
+**Product Owner:**
+
+İlk faz geliştirme öncelikleri aşağıdaki gibidir.
+
+| İşlem | Öncelik |
+|-------|----------|
+| Yeni müşteri oluşturma | High |
+| Müşteri görüntüleme | High |
+| Müşteri güncelleme | Medium |
+| Müşteri durumunu güncelleme | Medium |
+
+
+
+
+
+
+
+
+
