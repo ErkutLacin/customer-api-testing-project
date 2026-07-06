@@ -1,0 +1,21 @@
+{
+  "name": "customer-api-testing-project-api",
+  "version": "1.0.0",
+  "description": "Local REST API for Business Analyst API Testing Portfolio Project",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "business-analyst",
+    "api-testing",
+    "express",
+    "rest-api"
+  ],
+  "author": "Erkut Lacin",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

@@ -1,0 +1,280 @@
+openapi: 3.0.3
+
+info:
+  title: Customer API
+  version: 1.0.0
+  description: Local REST API for Business Analyst API Testing Portfolio Project
+
+servers:
+  - url: http://localhost:3000/api/v1
+
+paths:
+  /customers:
+    get:
+      summary: Get all customers
+      responses:
+        "200":
+          description: Customer list returned successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Customer"
+
+    post:
+      summary: Create a new customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCustomerRequest"
+      responses:
+        "201":
+          description: Customer created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Duplicate identity number or email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /customers/{customerId}:
+    get:
+      summary: Get customer by ID
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Customer returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "404":
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    put:
+      summary: Update customer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCustomerRequest"
+      responses:
+        "200":
+          description: Customer updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "409":
+          description: Duplicate email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /customers/{customerId}/status:
+    patch:
+      summary: Update customer status
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateCustomerStatusRequest"
+      responses:
+        "200":
+          description: Customer status updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+        "400":
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    CreateCustomerRequest:
+      type: object
+      required:
+        - identityNumber
+        - firstName
+        - lastName
+        - birthDate
+        - phoneNumber
+      properties:
+        identityNumber:
+          type: string
+          example: "12345678901"
+        firstName:
+          type: string
+          example: Ahmet
+        lastName:
+          type: string
+          example: Yilmaz
+        birthDate:
+          type: string
+          format: date
+          example: "1995-05-10"
+        phoneNumber:
+          type: string
+          example: "5551234567"
+        email:
+          type: string
+          example: ahmet@test.com
+        address:
+          type: string
+          example: Istanbul
+
+    UpdateCustomerRequest:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - phoneNumber
+      properties:
+        firstName:
+          type: string
+          example: Ahmet
+        lastName:
+          type: string
+          example: Yilmaz Updated
+        phoneNumber:
+          type: string
+          example: "5557654321"
+        email:
+          type: string
+          example: ahmet.updated@test.com
+        address:
+          type: string
+          example: Ankara
+
+    UpdateCustomerStatusRequest:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - PASSIVE
+          example: PASSIVE
+
+    Customer:
+      type: object
+      properties:
+        customerId:
+          type: string
+          example: "1783271390997"
+        identityNumber:
+          type: string
+          example: "12345678901"
+        firstName:
+          type: string
+          example: Ahmet
+        lastName:
+          type: string
+          example: Yilmaz
+        birthDate:
+          type: string
+          format: date
+          example: "1995-05-10"
+        phoneNumber:
+          type: string
+          example: "5551234567"
+        email:
+          type: string
+          nullable: true
+          example: ahmet@test.com
+        address:
+          type: string
+          nullable: true
+          example: Istanbul
+        status:
+          type: string
+          enum:
+            - ACTIVE
+            - PASSIVE
+          example: ACTIVE
+        createdDate:
+          type: string
+          format: date-time
+        updatedDate:
+          type: string
+          format: date-time
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+          example: 400
+        error:
+          type: string
+          example: Bad Request
+        message:
+          type: string
+          example: Identity Number is required.
+        path:
+          type: string
+          example: /api/v1/customers
