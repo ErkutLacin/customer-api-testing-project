@@ -35,8 +35,8 @@ function validateUnknownFields(body, allowedFields, path) {
   );
 
   if (invalidField) {
-    return createError(400, "Bad Request", `Unknown field: ${invalidField}`, path);
-  }
+  return createError(400, "Bad Request", `Unknown field: ${invalidField}`, path);
+}
 
   return null;
 }
@@ -122,6 +122,13 @@ function validateCreateCustomer(body, customers, path) {
 }
 
 function validateUpdateCustomer(body, customers, currentCustomer, path) {
+    if (body.identityNumber !== undefined) {
+    return createError(400, "Bad Request", "Identity Number cannot be updated.", path);
+  }
+
+  if (body.birthDate !== undefined) {
+    return createError(400, "Bad Request", "Birth Date cannot be updated.", path);
+  }
   const allowedFields = [
     "firstName",
     "lastName",

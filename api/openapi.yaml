@@ -1,20 +1,34 @@
 openapi: 3.0.3
 
 info:
-  title: Customer API
+  title: Customer Management API
   version: 1.0.0
-  description: Local REST API for Business Analyst API Testing Portfolio Project
+  description: >
+    Bu API, Business Analyst API Testing Portfolio Project kapsamında hazırlanmıştır.
+    Müşteri oluşturma, müşteri listeleme, müşteri sorgulama, müşteri güncelleme,
+    durum güncelleme ve business validation kurallarının test edilmesini sağlar.
+  contact:
+    name: Erkut Lacin
 
 servers:
   - url: http://localhost:3000/api/v1
+    description: Local geliştirme sunucusu
+
+tags:
+  - name: Customer Management
+    description: Müşteri oluşturma, listeleme, güncelleme ve durum yönetimi işlemleri.
 
 paths:
   /customers:
     get:
-      summary: Get all customers
+      tags:
+        - Customer Management
+      summary: Get All Customers
+      description: Sistemde kayıtlı tüm müşterileri listeler.
+      operationId: getAllCustomers
       responses:
         "200":
-          description: Customer list returned successfully
+          description: Müşteri listesi başarıyla döndürüldü.
           content:
             application/json:
               schema:
@@ -23,126 +37,262 @@ paths:
                   $ref: "#/components/schemas/Customer"
 
     post:
-      summary: Create a new customer
+      tags:
+        - Customer Management
+      summary: Create Customer
+      description: >
+        Yeni müşteri oluşturur. Bu işlem sırasında zorunlu alanlar, benzersiz
+        identityNumber, benzersiz email, 18 yaş kontrolü, telefon formatı ve
+        bilinmeyen alan kontrolleri uygulanır. status alanı sistem tarafından
+        ACTIVE olarak atanır.
+      operationId: createCustomer
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/CreateCustomerRequest"
+            example:
+              identityNumber: "12345678901"
+              firstName: Ahmet
+              lastName: Yilmaz
+              birthDate: "1995-05-10"
+              phoneNumber: "5551234567"
+              email: ahmet@test.com
+              address: Istanbul
       responses:
         "201":
-          description: Customer created successfully
+          description: Müşteri başarıyla oluşturuldu.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Customer"
         "400":
-          description: Validation error
+          description: Validation hatası.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                missingIdentityNumber:
+                  summary: Identity Number eksik
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: Identity Number is required.
+                    path: /api/v1/customers
+                invalidPhoneNumber:
+                  summary: Telefon numarası hatalı
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: Phone Number must be exactly 10 digits.
+                    path: /api/v1/customers
+                unknownField:
+                  summary: Bilinmeyen alan
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: "Unknown field: salary"
+                    path: /api/v1/customers
         "409":
-          description: Duplicate identity number or email
+          description: Duplicate kayıt hatası.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                duplicateIdentityNumber:
+                  summary: Identity Number zaten mevcut
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 409
+                    error: Conflict
+                    message: Identity Number already exists.
+                    path: /api/v1/customers
+                duplicateEmail:
+                  summary: Email zaten mevcut
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 409
+                    error: Conflict
+                    message: Email already exists.
+                    path: /api/v1/customers
 
   /customers/{customerId}:
     get:
-      summary: Get customer by ID
+      tags:
+        - Customer Management
+      summary: Get Customer By ID
+      description: customerId değerine göre tek bir müşteri kaydını döndürür.
+      operationId: getCustomerById
       parameters:
         - name: customerId
           in: path
           required: true
+          description: Sistem tarafından oluşturulan benzersiz müşteri ID değeri.
           schema:
             type: string
+          example: "1783339167137"
       responses:
         "200":
-          description: Customer returned successfully
+          description: Müşteri başarıyla döndürüldü.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Customer"
         "404":
-          description: Customer not found
+          description: Müşteri bulunamadı.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                timestamp: "2026-07-06T10:00:00.000Z"
+                status: 404
+                error: Not Found
+                message: Customer not found.
+                path: /api/v1/customers/9999999999999
 
     put:
-      summary: Update customer
+      tags:
+        - Customer Management
+      summary: Update Customer
+      description: >
+        Müşterinin güncellenebilir alanlarını değiştirir. customerId,
+        identityNumber, birthDate, createdDate ve status bu endpoint üzerinden
+        güncellenemez.
+      operationId: updateCustomer
       parameters:
         - name: customerId
           in: path
           required: true
+          description: Sistem tarafından oluşturulan benzersiz müşteri ID değeri.
           schema:
             type: string
+          example: "1783339167137"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/UpdateCustomerRequest"
+            example:
+              firstName: Ahmet
+              lastName: Yilmaz Updated
+              phoneNumber: "5557654321"
+              email: ahmet.updated@test.com
+              address: Ankara
       responses:
         "200":
-          description: Customer updated successfully
+          description: Müşteri başarıyla güncellendi.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Customer"
         "400":
-          description: Validation error
+          description: Validation hatası.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalidPhoneNumber:
+                  summary: Telefon numarası hatalı
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: Phone Number must be exactly 10 digits.
+                    path: /api/v1/customers/1783339167137
+                unknownField:
+                  summary: Güncellenemeyen veya bilinmeyen alan
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: "Unknown field: identityNumber"
+                    path: /api/v1/customers/1783339167137
         "404":
-          description: Customer not found
+          description: Müşteri bulunamadı.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         "409":
-          description: Duplicate email
+          description: Email zaten başka bir müşteri tarafından kullanılıyor.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              example:
+                timestamp: "2026-07-06T10:00:00.000Z"
+                status: 409
+                error: Conflict
+                message: Email already exists.
+                path: /api/v1/customers/1783339167137
 
   /customers/{customerId}/status:
     patch:
-      summary: Update customer status
+      tags:
+        - Customer Management
+      summary: Update Customer Status
+      description: >
+        Sadece müşteri status alanını günceller. Geçerli değerler ACTIVE ve
+        PASSIVE şeklindedir. DELETE endpoint kullanılmaz; müşteri kaydı fiziksel
+        olarak silinmez, PASSIVE statüsüne alınır.
+      operationId: updateCustomerStatus
       parameters:
         - name: customerId
           in: path
           required: true
+          description: Sistem tarafından oluşturulan benzersiz müşteri ID değeri.
           schema:
             type: string
+          example: "1783339167137"
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/UpdateCustomerStatusRequest"
+            example:
+              status: PASSIVE
       responses:
         "200":
-          description: Customer status updated successfully
+          description: Müşteri durumu başarıyla güncellendi.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Customer"
         "400":
-          description: Validation error
+          description: Validation hatası.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
+              examples:
+                invalidStatus:
+                  summary: Geçersiz status
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: Status must be ACTIVE or PASSIVE.
+                    path: /api/v1/customers/1783339167137/status
+                unknownField:
+                  summary: Status dışında alan gönderildi
+                  value:
+                    timestamp: "2026-07-06T10:00:00.000Z"
+                    status: 400
+                    error: Bad Request
+                    message: "Unknown field: reason"
+                    path: /api/v1/customers/1783339167137/status
         "404":
-          description: Customer not found
+          description: Müşteri bulunamadı.
           content:
             application/json:
               schema:
@@ -161,25 +311,32 @@ components:
       properties:
         identityNumber:
           type: string
+          description: 11 haneli benzersiz T.C. kimlik numarası.
           example: "12345678901"
         firstName:
           type: string
+          description: Müşteri adı. Zorunludur.
           example: Ahmet
         lastName:
           type: string
+          description: Müşteri soyadı. Zorunludur.
           example: Yilmaz
         birthDate:
           type: string
           format: date
+          description: Müşteri doğum tarihi. Müşteri en az 18 yaşında olmalıdır.
           example: "1995-05-10"
         phoneNumber:
           type: string
+          description: 10 haneli cep telefonu numarası.
           example: "5551234567"
         email:
           type: string
+          description: Opsiyonel email adresi. Gönderilirse benzersiz olmalıdır.
           example: ahmet@test.com
         address:
           type: string
+          description: Opsiyonel adres bilgisi.
           example: Istanbul
 
     UpdateCustomerRequest:
@@ -191,18 +348,23 @@ components:
       properties:
         firstName:
           type: string
+          description: Güncellenebilir müşteri adı.
           example: Ahmet
         lastName:
           type: string
+          description: Güncellenebilir müşteri soyadı.
           example: Yilmaz Updated
         phoneNumber:
           type: string
+          description: Güncellenebilir telefon numarası. 10 haneli olmalıdır.
           example: "5557654321"
         email:
           type: string
+          description: Güncellenebilir email adresi. Gönderilirse benzersiz olmalıdır.
           example: ahmet.updated@test.com
         address:
           type: string
+          description: Güncellenebilir adres bilgisi.
           example: Ankara
 
     UpdateCustomerStatusRequest:
@@ -212,6 +374,7 @@ components:
       properties:
         status:
           type: string
+          description: Müşteri durumu. Sadece ACTIVE veya PASSIVE olabilir.
           enum:
             - ACTIVE
             - PASSIVE
@@ -222,9 +385,11 @@ components:
       properties:
         customerId:
           type: string
-          example: "1783271390997"
+          description: Sistem tarafından otomatik oluşturulan benzersiz müşteri ID değeri.
+          example: "1783339167137"
         identityNumber:
           type: string
+          description: Benzersiz T.C. kimlik numarası.
           example: "12345678901"
         firstName:
           type: string
@@ -249,6 +414,7 @@ components:
           example: Istanbul
         status:
           type: string
+          description: Müşteri aktif/pasif durumu.
           enum:
             - ACTIVE
             - PASSIVE
@@ -256,9 +422,11 @@ components:
         createdDate:
           type: string
           format: date-time
+          description: Kaydın sistem tarafından oluşturulduğu tarih.
         updatedDate:
           type: string
           format: date-time
+          description: Kaydın son güncellendiği tarih.
 
     ErrorResponse:
       type: object
@@ -266,15 +434,20 @@ components:
         timestamp:
           type: string
           format: date-time
+          description: Hatanın oluştuğu zaman.
         status:
           type: integer
+          description: HTTP status code.
           example: 400
         error:
           type: string
+          description: HTTP error açıklaması.
           example: Bad Request
         message:
           type: string
+          description: Hata mesajı.
           example: Identity Number is required.
         path:
           type: string
+          description: Hatanın oluştuğu endpoint.
           example: /api/v1/customers

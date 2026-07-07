@@ -1,6 +1,6 @@
 [
   {
-    "customerId": "1783271390997",
+    "customerId": "1783435093403",
     "identityNumber": "12345678901",
     "firstName": "Ahmet",
     "lastName": "Yilmaz Updated",
@@ -8,8 +8,8 @@
     "phoneNumber": "5557654321",
     "email": "ahmet.updated@test.com",
     "address": "Ankara",
-    "status": "ACTIVE",
-    "createdDate": "2026-07-05T17:09:50.997Z",
-    "updatedDate": "2026-07-05T17:19:05.260Z"
+    "status": "PASSIVE",
+    "createdDate": "2026-07-07T14:38:13.403Z",
+    "updatedDate": "2026-07-07T14:38:13.562Z"
   }
 ]

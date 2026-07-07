@@ -15,8 +15,8 @@
 ## Kaynaklar
 
 - [Business Analysis Document](../docs/Business-Analysis-Document.md)
-- [Test Senaryoları](Test-Scenarios.md)
-- [Test Verileri](Test-Data.md)
+- [Test Senaryoları](01-Test-Scenarios.md)
+- [Test Verileri](03-Test-Data.md)
 
 ---
 

@@ -1,0 +1,440 @@
+{
+  "info": {
+    "name": "Customer API Testing Collection",
+    "description": "Postman collection for Business Analyst API Testing Portfolio Project. Run order is optimized for end-to-end execution.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customer API Test Cases",
+      "item": [
+        {
+          "name": "06 - Get Empty Customer List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/customers"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Response is an array', function () { pm.expect(response).to.be.an('array'); });",
+                  "pm.test('Customer list is empty', function () { pm.expect(response.length).to.eql(0); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "01 - Create Customer - Success",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identityNumber\": \"12345678901\",\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yilmaz\",\n  \"birthDate\": \"1995-05-10\",\n  \"phoneNumber\": \"5551234567\",\n  \"email\": \"ahmet@test.com\",\n  \"address\": \"Istanbul\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 201', function () { pm.response.to.have.status(201); });",
+                  "pm.test('Response time is less than 1000 ms', function () { pm.expect(pm.response.responseTime).to.be.below(1000); });",
+                  "const response = pm.response.json();",
+                  "pm.environment.set('customerId', response.customerId);",
+                  "pm.test('Customer ID is generated', function () { pm.expect(response.customerId).to.exist; });",
+                  "pm.test('Default status is ACTIVE', function () { pm.expect(response.status).to.eql('ACTIVE'); });",
+                  "pm.test('Created date exists', function () { pm.expect(response.createdDate).to.exist; });",
+                  "pm.test('Updated date exists', function () { pm.expect(response.updatedDate).to.exist; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "02 - Create Customer - Duplicate Identity Number",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identityNumber\": \"12345678901\",\n  \"firstName\": \"Mehmet\",\n  \"lastName\": \"Demir\",\n  \"birthDate\": \"1992-08-20\",\n  \"phoneNumber\": \"5559876543\",\n  \"email\": \"mehmet@test.com\",\n  \"address\": \"Ankara\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 409', function () { pm.response.to.have.status(409); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Identity Number already exists.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "03 - Create Customer - Missing Required Field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ayse\",\n  \"lastName\": \"Kaya\",\n  \"birthDate\": \"1995-03-15\",\n  \"phoneNumber\": \"5554443322\",\n  \"email\": \"ayse@test.com\",\n  \"address\": \"Izmir\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Identity Number is required.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "04 - Create Customer - Under 18",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identityNumber\": \"98765432109\",\n  \"firstName\": \"Can\",\n  \"lastName\": \"Yilmaz\",\n  \"birthDate\": \"2012-01-01\",\n  \"phoneNumber\": \"5553332211\",\n  \"email\": \"can@test.com\",\n  \"address\": \"Bursa\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Customer must be at least 18 years old.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "05 - Get All Customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/customers"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Response time is less than 1000 ms', function () { pm.expect(pm.response.responseTime).to.be.below(1000); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Response is an array', function () { pm.expect(response).to.be.an('array'); });",
+                  "pm.test('Customer list is not empty', function () { pm.expect(response.length).to.be.greaterThan(0); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "07 - Get Customer By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/customers/{{customerId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Customer ID matches environment variable', function () { pm.expect(response.customerId).to.eql(pm.environment.get('customerId')); });",
+                  "pm.test('Identity number exists', function () { pm.expect(response.identityNumber).to.exist; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "08 - Get Customer - Not Found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/customers/9999999999999"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 404', function () { pm.response.to.have.status(404); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Customer not found.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "09 - Update Customer - Success",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/{{customerId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yilmaz Updated\",\n  \"phoneNumber\": \"5557654321\",\n  \"email\": \"ahmet.updated@test.com\",\n  \"address\": \"Ankara\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Last name is updated', function () { pm.expect(response.lastName).to.eql('Yilmaz Updated'); });",
+                  "pm.test('Phone number is updated', function () { pm.expect(response.phoneNumber).to.eql('5557654321'); });",
+                  "pm.test('Identity number is not changed', function () { pm.expect(response.identityNumber).to.eql('12345678901'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "10 - Update Customer - Identity Number Cannot Be Updated",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/{{customerId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identityNumber\": \"99999999999\",\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yilmaz\",\n  \"phoneNumber\": \"5551234567\",\n  \"email\": \"ahmet@test.com\",\n  \"address\": \"Istanbul\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Identity Number cannot be updated.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "11 - Update Customer - Birth Date Cannot Be Updated",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/{{customerId}}",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"birthDate\": \"2005-01-01\",\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yilmaz\",\n  \"phoneNumber\": \"5551234567\",\n  \"email\": \"ahmet@test.com\",\n  \"address\": \"Istanbul\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Birth Date cannot be updated.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "12 - Update Customer - Not Found",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/9999999999999",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Ahmet\",\n  \"lastName\": \"Yilmaz\",\n  \"phoneNumber\": \"5551234567\",\n  \"email\": \"ahmet@test.com\",\n  \"address\": \"Istanbul\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 404', function () { pm.response.to.have.status(404); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Customer not found.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "13 - Update Customer Status - Success",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/{{customerId}}/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"PASSIVE\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 200', function () { pm.response.to.have.status(200); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Status is PASSIVE', function () { pm.expect(response.status).to.eql('PASSIVE'); });",
+                  "pm.test('Updated date exists', function () { pm.expect(response.updatedDate).to.exist; });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "14 - Update Customer Status - Customer Not Found",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/9999999999999/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"PASSIVE\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 404', function () { pm.response.to.have.status(404); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Customer not found.'); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "15 - Update Customer Status - Invalid Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/customers/{{customerId}}/status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"DELETED\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status code is 400', function () { pm.response.to.have.status(400); });",
+                  "const response = pm.response.json();",
+                  "pm.test('Error message is correct', function () { pm.expect(response.message).to.eql('Status must be ACTIVE or PASSIVE.'); });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

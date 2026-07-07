@@ -4,9 +4,10 @@
   "description": "Local REST API for Business Analyst API Testing Portfolio Project",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
-  },
+  "start": "node src/server.js",
+  "dev": "node --watch src/server.js",
+  "test-api": "newman run ../testing/postman/Customer-API.postman_collection.json -e ../testing/postman/Customer-API.postman_environment.json"
+},
   "keywords": [
     "business-analyst",
     "api-testing",
@@ -17,5 +18,9 @@
   "license": "MIT",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "newman": "^6.2.2",
+    "newman-reporter-htmlextra": "^1.23.1"
   }
 }
