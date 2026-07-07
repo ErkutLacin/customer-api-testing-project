@@ -16,7 +16,7 @@ yer almaktadır.
 
 ### Swagger'ı Görüntüleme
 
-1. [`api/openapi.yaml`](api/openapi.yaml) dosyasını açın.
+1. [`api/openapi.yaml`](../../api/openapi.yaml) dosyasını açın.
 2. Dosya içeriğini kopyalayın.
 3. https://editor.swagger.io adresini açın.
 4. Varsayılan örneği silerek kendi `openapi.yaml` dosyanızı yapıştırın.
