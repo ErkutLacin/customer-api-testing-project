@@ -282,7 +282,7 @@ yer almaktadır.
 
 Aşağıdaki ekran görüntüsünde tüm testlerin başarıyla çalıştırıldığı Collection Runner sonucu yer almaktadır.
 
-![Collection Runner](screenshots/postman/Runner.png)
+![Collection Runner](screenshots/postman/20-All-Collection-Runner.png)
 
 ---
 
