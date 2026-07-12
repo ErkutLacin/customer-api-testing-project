@@ -109,3 +109,9 @@ olarak atanmalıdır.
 | Adres | 250 karakter |
 
 Teknik veri tipleri ve kolon uzunlukları analiz sürecinde Business Analyst ve yazılım ekibi tarafından netleştirilecektir.
+---
+## Sonraki Toplantı Notları
+
+Üçüncü stakeholder görüşmesine aşağıdaki bağlantıdan ulaşabilirsiniz.
+
+➡️ [Stakeholder Interview 03](Stakeholder-Interview-03.md)

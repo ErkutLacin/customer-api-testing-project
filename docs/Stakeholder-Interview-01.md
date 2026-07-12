@@ -136,3 +136,9 @@ Projenin başarılı olduğu aşağıdaki çıktılarla değerlendirilecektir:
 - Yeni müşteri oluşturma süresinin azalması
 - Veri tutarsızlıklarının azaltılması
 - Yeni uygulamaların entegrasyon süresinin kısalması
+---
+## Sonraki Toplantı Notları
+
+Bir sonraki stakeholder görüşmesine aşağıdaki bağlantıdan ulaşabilirsiniz.
+
+➡️ [Stakeholder Interview 02](Stakeholder-Interview-02.md)
