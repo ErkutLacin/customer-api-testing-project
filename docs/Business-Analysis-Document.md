@@ -93,16 +93,6 @@ Aşağıdaki fonksiyonlar bu projenin kapsamına dahildir:
 - İşlem öncesinde müşteri verilerini doğrulama.
 - API'yi kullanacak uygulamalar için standart bir Müşteri Yönetimi API'si sağlama.
 
-## Kapsam Dışında
-
-Aşağıdaki fonksiyonlar bu projenin kapsamına dahil değildir:
-
-- Mobil uygulama UI/UX geliştirmesi.
-- Kredi kartı yönetimi.
-- Kredi yönetimi.
-- Müşteri kimlik doğrulama ve giriş süreçleri.
-- Ödeme servisleri ile entegrasyon.
-
 ---
 
 # 5. Paydaşlar
