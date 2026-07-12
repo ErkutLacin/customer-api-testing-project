@@ -83,8 +83,6 @@ Bu projenin hedefleri şunlardır:
 
 # 4. Proje Kapsamı
 
-## Kapsam Dahilinde
-
 Aşağıdaki fonksiyonlar bu projenin kapsamına dahildir:
 
 - Yeni müşteri oluşturma.
