@@ -51,11 +51,7 @@ API Testing (Postman)
 
 # 1. Proje Genel Bakış
 
-Bu proje, bir İş Analisti tarafından yürütülen uçtan uca analiz, dokümantasyon ve API test süreçlerini göstermek amacıyla bir portföy çalışması olarak hazırlanmıştır.
-
 Proje, dijital bankacılık ortamındaki bir Müşteri Yönetimi API'sinin analiz ve test faaliyetlerini simüle etmektedir. Proje boyunca iş gereksinimleri, fonksiyonel gereksinimler, iş kuralları, API gereksinimleri, test senaryoları ve API testleri adım adım oluşturulacaktır.
-
-Ana amaç bir arka yüz uygulaması geliştirmek değil; bir İş Analistinin analitik düşünme, dokümantasyon becerilerini ve test yaklaşımını gerçekçi bir vaka çalışması üzerinden ortaya koymaktır.
 
 ---
 
