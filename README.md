@@ -413,9 +413,9 @@ Bu proje, İş Analizi, REST API analizi, dokümantasyon ve API test süreçleri
 
 ## İletişim
 
-- GitHub: https://github.com/<github-kullanici-adiniz>
-- LinkedIn: https://linkedin.com/in/<linkedin-kullanici-adiniz>
-- Medium: https://medium.com/@<medium-kullanici-adiniz>
+- GitHub: https://github.com/ErkutLacin
+- LinkedIn: https://linkedin.com/in/erkut-lacin
+- Medium: https://medium.com/@lacin.erkut
 
 ---
 
