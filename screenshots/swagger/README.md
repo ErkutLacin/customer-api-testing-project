@@ -23,6 +23,8 @@ yer almaktadır.
 
 Swagger Editor, API dokümantasyonunu otomatik olarak oluşturacaktır.
 
-Swagger'ın genel görünümünü: ![`screenshots/swagger/01-Swagger-Overview.png`](./01-Swagger-Overview.png)
+## Swagger'ın genel görünümü: 
+
+![`screenshots/swagger/01-Swagger-Overview.png`](./01-Swagger-Overview.png)
 
  
