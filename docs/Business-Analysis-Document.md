@@ -225,7 +225,7 @@ Bu bölüm, sistemin veri girişleri sırasında uygulaması gereken doğrulama 
 
 ## Kaynaklar
 
-- [İş Kuralları](#8-íş-kuralları-business-rules)
+- [İş Kuralları](#8-i̇ş-kuralları-business-rules)
 - [Veri Sözlüğü](#9-veri-sözlüğü-data-dictionary)
 - [API Gereksinimleri](#10-api-gereksinimleri)
 
