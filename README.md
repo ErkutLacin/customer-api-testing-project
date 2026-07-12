@@ -30,7 +30,7 @@ Projeyi aşağıdaki sırayla incelemeniz önerilir.
 | **1** | [`Business Request`](docs/Business-Request.md) | Projenin ortaya çıkış nedeni ve iş ihtiyacını inceleyin. |
 | **2** | [`Stakeholder Interview`](docs/Stakeholder-Interview-01.md) | Paydaşlardan toplanan ihtiyaçları ve alınan kararları inceleyin. |
 | **3** | [`Business Analysis Document`](docs/Business-Analysis-Document.md) | Gereksinimler, Business Rule'lar, Veri Sözlüğü, API Gereksinimleri, Validation Rule'lar ve Acceptance Criteria bölümlerini inceleyin. |
-| **4** | [`Swagger API`](api/openapi.yaml) | REST API tasarımını inceleyin. Genel görünüm için [`Swagger Overview`](screenshots/swagger/01-Swagger-Overview.png) ekran görüntüsüne bakabilirsiniz. |
+| **4** | [`Swagger API`](api/openapi.yaml) | REST API tasarımını inceleyin. Genel görünüm için [`Swagger Overview`](screenshots/swagger/README.md) dökümanına bakabilirsiniz. |
 | **5** | [`Test Senaryoları`](testing/01-Test-Scenarios.md) | Fonksiyonel test senaryolarını inceleyin. |
 | **6** | [`Test Case'ler`](testing/02-Test-Cases.md) | Test adımlarını ve beklenen sonuçları inceleyin. |
 | **7** | [`Test Verileri`](testing/03-Test-Data.md) | Testlerde kullanılan request verilerini inceleyin. |
