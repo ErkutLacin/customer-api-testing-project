@@ -1,4 +1,4 @@
-# Business Analysis Portfolio Project – Customer Management API
+# İş Analizi Portföy Projesi – Müşteri Yönetim API’si
 
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=node.js&logoColor=white)
 ![Express.js](https://img.shields.io/badge/Express.js-5.x-000000?logo=express&logoColor=white)
