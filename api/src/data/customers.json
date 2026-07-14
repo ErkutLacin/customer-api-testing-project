@@ -1,15 +1,1 @@
-[
-  {
-    "customerId": "1783435093403",
-    "identityNumber": "12345678901",
-    "firstName": "Ahmet",
-    "lastName": "Yilmaz Updated",
-    "birthDate": "1995-05-10",
-    "phoneNumber": "5557654321",
-    "email": "ahmet.updated@test.com",
-    "address": "Ankara",
-    "status": "PASSIVE",
-    "createdDate": "2026-07-07T14:38:13.403Z",
-    "updatedDate": "2026-07-07T14:38:13.562Z"
-  }
-]
+[]
